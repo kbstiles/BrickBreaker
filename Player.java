@@ -95,6 +95,10 @@ public class Player {
         score += amount;
     }
 
+    public void subtractScore(int amount) {
+        score -= amount;
+    }
+
     public Point getPos() {
         return pos;
     }

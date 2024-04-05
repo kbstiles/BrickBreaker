@@ -6,14 +6,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+//Add obstacles to blockk player movement
 public class Obstacle {
 
     // image that represents the coin's position on the board
     private BufferedImage image;
     // current position of the coin on the board grid
     private Point pos;
-    // coin point amount
-    private int pointAmount = 50;
 
     public Obstacle(int x, int y) {
         // load the assets

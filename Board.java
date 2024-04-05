@@ -68,7 +68,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         player.tick();
 
         // give the player points for collecting coins
-        collectCoins();
+        collectObject();
 
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
@@ -253,9 +253,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         return obstacleList;
     }
 
-    private void collectCoins() {
+    private void collectObject() {
         // allow player to pickup coins
         ArrayList<Coin> collectedCoins = new ArrayList<>();
+        ArrayList<Death> collectedDeaths = new ArrayList<>();
         for (Coin coin : coins) {
             // if the player is on the same tile as a coin, collect it
             if (player.getPos().equals(coin.getPos())) {
@@ -322,8 +323,56 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 }
             }
         }
+
+        for (Death death : deaths) {
+            // if the player is on the same tile as a coin, collect it
+            if (player.getPos().equals(death.getPos())) {
+                // give the player some points for picking this up
+                player.subtractScore(death.getPointAmount());
+                collectedDeaths.add(death);
+
+                validPosAmount = 0;
+                // *** make a new coin appear whenever the player picks one up 5
+                Random rand = new Random();
+                int deathX,
+                        deathY;
+                do {
+                    deathX = rand.nextInt(COLUMNS);
+                    deathY = rand.nextInt(ROWS);
+
+                    for (Coin coiner : coins) {
+                        if (deathX == coiner.getPos().x) {
+                            deathX = rand.nextInt(COLUMNS);
+                        } else {
+                            validPosAmount++;
+                        }
+                        if (deathY == coiner.getPos().y) {
+                            deathY = rand.nextInt(ROWS);
+                        } else {
+                            validPosAmount++;
+                        }
+                    }
+                    for (Obstacle obstacle : obstacles) {
+                        if (deathX == obstacle.getPos().x) {
+                            deathX = rand.nextInt(COLUMNS);
+                        } else {
+                            validPosAmount++;
+                        }
+                        if (deathY == obstacle.getPos().y) {
+                            deathY = rand.nextInt(ROWS);
+                        } else {
+                            validPosAmount++;
+                        }
+                    }
+
+                } while (validPosAmount < 6);
+
+                deaths.set(deaths.indexOf(death), (new Death(deathX, deathY)));
+            }
+        }
         // remove collected coins from the board
         coins.removeAll(collectedCoins);
+        deaths.removeAll(collectedDeaths);
     }
 
 }

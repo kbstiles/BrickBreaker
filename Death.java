@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+// *** Add an object type that reduces your score when touched 15
 public class Death {
 
     // image that represents the coin's position on the board
