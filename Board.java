@@ -25,6 +25,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private Player player;
     private ArrayList<Coin> coins;
 
+    private ArrayList<Coin> coinList = new ArrayList<>();
+
     public Board() {
         // set the game board size
         setPreferredSize(new Dimension(TILE_SIZE * COLUMNS, TILE_SIZE * ROWS));
@@ -145,7 +147,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     }
 
     private ArrayList<Coin> populateCoins() {
-        ArrayList<Coin> coinList = new ArrayList<>();
+
         Random rand = new Random();
 
         // create the given number of coins in random positions on the board.
@@ -155,7 +157,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         for (int i = 0; i < NUM_COINS; i++) {
             int coinX = rand.nextInt(COLUMNS);
             int coinY = rand.nextInt(ROWS);
-            coinList.add(new Coin(coinX, coinY));
+            int type = rand.nextInt(3);
+            coinList.add(new Coin(coinX, coinY, type));
         }
 
         return coinList;
@@ -168,12 +171,20 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             // if the player is on the same tile as a coin, collect it
             if (player.getPos().equals(coin.getPos())) {
                 // give the player some points for picking this up
-                // *** change the amount of points per coin 5
-                player.addScore(50);
+                player.addScore(coin.getPointAmount());
                 collectedCoins.add(coin);
 
+                // *** End or restart the game when all coins are collected, or when a certain
+                // score is reached 10
                 if (Integer.parseInt(player.getScore()) >= 500) {
 
+                } else {
+                    // *** make a new coin appear whenever the player picks one up
+                    Random rand = new Random();
+                    int coinX = rand.nextInt(COLUMNS);
+                    int coinY = rand.nextInt(ROWS);
+                    int type = rand.nextInt(3);
+                    coinList.set(coinList.indexOf(coin), (new Coin(coinX, coinY, type)));
                 }
             }
         }
