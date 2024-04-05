@@ -6,43 +6,28 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Coin {
+public class Obstacle {
 
     // image that represents the coin's position on the board
     private BufferedImage image;
     // current position of the coin on the board grid
     private Point pos;
     // coin point amount
-    private int pointAmount;
+    private int pointAmount = 50;
 
-    public Coin(int x, int y, int type) {
+    public Obstacle(int x, int y) {
         // load the assets
-        loadImage(type);
+        loadImage();
 
         // initialize the state
         pos = new Point(x, y);
-
-        if (type == 1) {
-            // *** change how many points per coin 5
-            pointAmount = 50;
-        } else {
-            // *** special coin worth more points and looks different /part 1
-            pointAmount = 100;
-        }
     }
 
-    private void loadImage(int type) {
+    private void loadImage() {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
-            if (type == 1) {
-                // *** change the image files /part 1
-                image = ImageIO.read(new File("images/coin.png"));
-            } else if (type == 2) {
-                // *** special coin worth more points and looks different /part 2 10
-                // *** change the image files /part 2
-                image = ImageIO.read(new File("images/coin2.png"));
-            }
+            image = ImageIO.read(new File("images/obstacle.png"));
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }

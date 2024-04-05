@@ -26,6 +26,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private ArrayList<Coin> coins;
 
     private ArrayList<Coin> coinList = new ArrayList<>();
+    private ArrayList<Death> deathList = new ArrayList();
+
+    int minType = 1;
+    int maxType = 2;
+
+    boolean validX,
+            validY;
 
     public Board() {
         // set the game board size
@@ -157,7 +164,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         for (int i = 0; i < NUM_COINS; i++) {
             int coinX = rand.nextInt(COLUMNS);
             int coinY = rand.nextInt(ROWS);
-            int type = rand.nextInt(3);
+            int type = rand.nextInt(maxType - minType + 1) + minType;
             coinList.add(new Coin(coinX, coinY, type));
         }
 
@@ -176,15 +183,35 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
                 // *** End or restart the game when all coins are collected, or when a certain
                 // score is reached 10
-                if (Integer.parseInt(player.getScore()) >= 500) {
+                if (Integer.parseInt(player.getScore()) >= 1000) {
 
                 } else {
                     // *** make a new coin appear whenever the player picks one up 5
                     Random rand = new Random();
-                    int coinX = rand.nextInt(COLUMNS);
-                    int coinY = rand.nextInt(ROWS);
-                    int type = rand.nextInt(3);
-                    coinList.set(coinList.indexOf(coin), (new Coin(coinX, coinY, type)));
+                    int coinX,
+                            coinY,
+                            type;
+                    do {
+                        coinX = rand.nextInt(COLUMNS);
+                        coinY = rand.nextInt(ROWS);
+                        type = rand.nextInt(maxType - minType + 1) + minType;
+
+                        for (Coin coiner : coins) {
+                            if (coinX == coiner.getPos().x) {
+                                coinX = rand.nextInt(COLUMNS);
+                            } else {
+                                validX = true;
+                            }
+                            if (coinY == coiner.getPos().y) {
+                                coinY = rand.nextInt(ROWS);
+                            } else {
+                                validY = true;
+                            }
+                        }
+
+                    } while (validX == false && validY == false);
+
+                    coins.set(coins.indexOf(coin), (new Coin(coinX, coinY, type)));
                 }
             }
         }
