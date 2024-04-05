@@ -49,7 +49,4 @@ public class Obstacle {
         return pos;
     }
 
-    public int getPointAmount() {
-        return pointAmount;
-    }
 }
