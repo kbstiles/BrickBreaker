@@ -19,7 +19,7 @@ public class Coin {
 
     public Coin(int x, int y, int type) {
         // load the assets
-        loadImage();
+        loadImage(type);
 
         // initialize the state
         pos = new Point(x, y);
@@ -33,15 +33,17 @@ public class Coin {
         }
     }
 
-    private void loadImage() {
+    private void loadImage(int type) {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
             if (type == 1) {
+                // *** change the image files /part 1
                 image = ImageIO.read(new File("images/coin.png"));
-            } else {
+            } else if (type == 2) {
                 // *** special coin worth more points and looks different /part 2 10
-                image = ImageIO.read(new File("images/coin.png"));
+                // *** change the image files /part 2
+                image = ImageIO.read(new File("images/coin2.png"));
             }
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
