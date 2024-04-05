@@ -14,7 +14,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public static final int ROWS = 13;
     public static final int COLUMNS = 20;
     // controls how many coins appear on the board
-    public static final int NUM_COINS = 5;
+    public static final int NUM_COINS = 5,
+            NUM_DEATHS = 3,
+            NUM_OBSTACLES = 10;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;
 
@@ -24,9 +26,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     // objects that appear on the game board
     private Player player;
     private ArrayList<Coin> coins;
+    private ArrayList<Death> deaths;
+    private ArrayList<Obstacle> obstacles;
 
     private ArrayList<Coin> coinList = new ArrayList<>();
     private ArrayList<Death> deathList = new ArrayList();
+    private ArrayList<Obstacle> obstacleList = new ArrayList();
 
     int minType = 1;
     int maxType = 2;
@@ -169,6 +174,40 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         }
 
         return coinList;
+    }
+
+    private ArrayList<Death> populateDeaths() {
+
+        Random rand = new Random();
+
+        // create the given number of coins in random positions on the board.
+        // note that there is not check here to prevent two coins from occupying the
+        // same
+        // spot, nor to prevent coins from spawning in the same spot as the player
+        for (int i = 0; i < NUM_DEATHS; i++) {
+            int deathX = rand.nextInt(COLUMNS);
+            int deathY = rand.nextInt(ROWS);
+            deathList.add(new Death(deathX, deathY));
+        }
+
+        return deathList;
+    }
+
+    private ArrayList<Obstacle> populateObstacles() {
+
+        Random rand = new Random();
+
+        // create the given number of coins in random positions on the board.
+        // note that there is not check here to prevent two coins from occupying the
+        // same
+        // spot, nor to prevent coins from spawning in the same spot as the player
+        for (int i = 0; i < NUM_OBSTACLES; i++) {
+            int obstacleX = rand.nextInt(COLUMNS);
+            int obstacleY = rand.nextInt(ROWS);
+            obstacleList.add(new Obstacle(obstacleX, obstacleY));
+        }
+
+        return obstacleList;
     }
 
     private void collectCoins() {
