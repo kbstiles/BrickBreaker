@@ -30,8 +30,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private ArrayList<Obstacle> obstacles;
 
     private ArrayList<Coin> coinList = new ArrayList<>();
-    private ArrayList<Death> deathList = new ArrayList();
-    private ArrayList<Obstacle> obstacleList = new ArrayList();
+    private ArrayList<Death> deathList = new ArrayList<>();
+    private ArrayList<Obstacle> obstacleList = new ArrayList<>();
 
     int minType = 1;
     int maxType = 2;
