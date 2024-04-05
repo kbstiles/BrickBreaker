@@ -179,7 +179,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 if (Integer.parseInt(player.getScore()) >= 500) {
 
                 } else {
-                    // *** make a new coin appear whenever the player picks one up
+                    // *** make a new coin appear whenever the player picks one up 5
                     Random rand = new Random();
                     int coinX = rand.nextInt(COLUMNS);
                     int coinY = rand.nextInt(ROWS);
