@@ -332,7 +332,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 collectedDeaths.add(death);
 
                 validPosAmount = 0;
-                // *** make a new coin appear whenever the player picks one up 5
                 Random rand = new Random();
                 int deathX,
                         deathY;

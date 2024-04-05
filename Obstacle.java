@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-//Add obstacles to blockk player movement
+// *** Add obstacles to block player movement 15
 public class Obstacle {
 
     // image that represents the coin's position on the board
