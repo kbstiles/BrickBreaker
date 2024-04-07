@@ -53,27 +53,51 @@ public class Player {
         // keyboard event so that we can compare it to KeyEvent constants
         int key = e.getKeyCode();
 
+        boolean validPos = true;
+
         // depending on which arrow key was pressed, we're going to move the player by
         // one whole tile for this input
 
         if (key == KeyEvent.VK_UP) {
-            System.out.println("Player X: " + pos.x + "\nPlayer Y: " + pos.y);
             for (Obstacle obstacle : Board.obstacles) {
-                System.out.println("Obs X:" + obstacle.getPos().x + "\nObs Y:" + obstacle.getPos().y);
-                if (pos.x == obstacle.getPos().x && pos.y != obstacle.getPos().y + 1) {
-                    pos.translate(0, -1);
-                    break;
+
+                if (pos.x == obstacle.getPos().x && pos.y == obstacle.getPos().y + 1) {
+                    validPos = false;
                 }
+            }
+            if (validPos) {
+                pos.translate(0, -1);
             }
         }
         if (key == KeyEvent.VK_RIGHT) {
-            pos.translate(1, 0);
+            for (Obstacle obstacle : Board.obstacles) {
+                if (pos.x == obstacle.getPos().x - 1 && pos.y == obstacle.getPos().y) {
+                    validPos = false;
+                }
+            }
+            if (validPos) {
+                pos.translate(1, 0);
+            }
         }
         if (key == KeyEvent.VK_DOWN) {
-            pos.translate(0, 1);
+            for (Obstacle obstacle : Board.obstacles) {
+                if (pos.x == obstacle.getPos().x && pos.y == obstacle.getPos().y - 1) {
+                    validPos = false;
+                }
+            }
+            if (validPos) {
+                pos.translate(0, 1);
+            }
         }
         if (key == KeyEvent.VK_LEFT) {
-            pos.translate(-1, 0);
+            for (Obstacle obstacle : Board.obstacles) {
+                if (pos.x == obstacle.getPos().x + 1 && pos.y == obstacle.getPos().y) {
+                    validPos = false;
+                }
+            }
+            if (validPos) {
+                pos.translate(-1, 0);
+            }
         }
     }
 

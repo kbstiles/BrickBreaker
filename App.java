@@ -38,6 +38,7 @@ class App {
                 // *** Add sounds (game startup) /part 3 15
                 Sound startupSound = new Sound("Sounds/gameStartup.wav", false);
                 startupSound.playSound();
+
                 // *** Add sounds (constant cound track) /part 2
                 Sound backgroundSound = new Sound("Sounds/backgroundSoundtrack.wav", true);
                 backgroundSound.playSound();
