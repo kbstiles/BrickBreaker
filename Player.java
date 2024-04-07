@@ -30,7 +30,7 @@ public class Player {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
             // *** change the image files /part 3 5
-            image = ImageIO.read(new File("images/player.png"));
+            image = ImageIO.read(new File("Images/player.png"));
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }
@@ -55,8 +55,16 @@ public class Player {
 
         // depending on which arrow key was pressed, we're going to move the player by
         // one whole tile for this input
+
         if (key == KeyEvent.VK_UP) {
-            pos.translate(0, -1);
+            System.out.println("Player X: " + pos.x + "\nPlayer Y: " + pos.y);
+            for (Obstacle obstacle : Board.obstacles) {
+                System.out.println("Obs X:" + obstacle.getPos().x + "\nObs Y:" + obstacle.getPos().y);
+                if (pos.x == obstacle.getPos().x && pos.y != obstacle.getPos().y + 1) {
+                    pos.translate(0, -1);
+                    break;
+                }
+            }
         }
         if (key == KeyEvent.VK_RIGHT) {
             pos.translate(1, 0);
@@ -74,16 +82,17 @@ public class Player {
         // so we can do anything needed in here to update the state of the player.
 
         // prevent the player from moving off the edge of the board sideways
+        // *** Allow the player to wrap around the edges of the board 10
         if (pos.x < 0) {
-            pos.x = 0;
-        } else if (pos.x >= Board.COLUMNS) {
             pos.x = Board.COLUMNS - 1;
+        } else if (pos.x >= Board.COLUMNS) {
+            pos.x = 0;
         }
         // prevent the player from moving off the edge of the board vertically
         if (pos.y < 0) {
-            pos.y = 0;
-        } else if (pos.y >= Board.ROWS) {
             pos.y = Board.ROWS - 1;
+        } else if (pos.y >= Board.ROWS) {
+            pos.y = 0;
         }
     }
 

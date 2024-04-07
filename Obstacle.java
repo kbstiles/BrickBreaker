@@ -26,7 +26,7 @@ public class Obstacle {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
-            image = ImageIO.read(new File("images/obstacle.png"));
+            image = ImageIO.read(new File("Images/obstacle.png"));
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }

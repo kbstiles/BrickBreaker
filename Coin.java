@@ -37,11 +37,11 @@ public class Coin {
             // project folder, otherwise you need to provide the file path.
             if (type == 1) {
                 // *** change the image files /part 1
-                image = ImageIO.read(new File("images/coin.png"));
+                image = ImageIO.read(new File("Images/coin.png"));
             } else if (type == 2) {
                 // *** special coin worth more points and looks different /part 2 10
                 // *** change the image files /part 2
-                image = ImageIO.read(new File("images/coin2.png"));
+                image = ImageIO.read(new File("Images/coin2.png"));
             }
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
@@ -67,4 +67,5 @@ public class Coin {
     public int getPointAmount() {
         return pointAmount;
     }
+
 }
