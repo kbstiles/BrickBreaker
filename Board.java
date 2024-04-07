@@ -176,9 +176,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // same
         // spot, nor to prevent coins from spawning in the same spot as the player
         for (int i = 0; i < NUM_COINS; i++) {
-            int coinX = rand.nextInt(COLUMNS);
-            int coinY = rand.nextInt(ROWS);
-            int type = rand.nextInt((maxType - minType) + 1) + minType;
+            int coinX = rand.nextInt(COLUMNS),
+                    coinY = rand.nextInt(ROWS),
+                    type = rand.nextInt((maxType - minType) + 1) + minType;
 
             coinList.add(new Coin(coinX, coinY, type));
         }
@@ -195,8 +195,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // same
         // spot, nor to prevent coins from spawning in the same spot as the player
         for (int i = 0; i < NUM_DEATHS; i++) {
-            int deathX = rand.nextInt(COLUMNS);
-            int deathY = rand.nextInt(ROWS);
+            int deathX = rand.nextInt(COLUMNS),
+                    deathY = rand.nextInt(ROWS);
 
             deathList.add(new Death(deathX, deathY));
         }
@@ -213,8 +213,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // same
         // spot, nor to prevent coins from spawning in the same spot as the player
         for (int i = 0; i < NUM_OBSTACLES; i++) {
-            int obstacleX = rand.ints(1, COLUMNS - 1).findFirst().getAsInt();
-            int obstacleY = rand.ints(1, ROWS - 1).findFirst().getAsInt();
+            int obstacleX = rand.ints(1, COLUMNS - 1).findFirst().getAsInt(),
+                    obstacleY = rand.ints(1, ROWS - 1).findFirst().getAsInt();
+
             obstacleList.add(new Obstacle(obstacleX, obstacleY));
         }
 
@@ -238,15 +239,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 // *** End or restart the game when all coins are collected, or when a certain
                 // score is reached 10
                 if (Integer.parseInt(player.getScore()) >= 1000) {
-
+                    System.exit(0);
                 } else {
 
                     // *** make a new coin appear whenever the player picks one up 5
                     Random rand = new Random();
 
-                    int coinX = rand.nextInt(COLUMNS);
-                    int coinY = rand.nextInt(ROWS);
-                    int type = rand.nextInt(maxType - minType + 1) + minType;
+                    int coinX = rand.nextInt(COLUMNS),
+                            coinY = rand.nextInt(ROWS),
+                            type = rand.nextInt(maxType - minType + 1) + minType;
 
                     coins.set(coins.indexOf(coin), (new Coin(coinX, coinY, type)));
                 }
@@ -254,16 +255,16 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         }
 
         for (Death death : deaths) {
-            // if the player is on the same tile as a coin, collect it
+            // if the player is on the same tile as a death, collect it
             if (player.getPos().equals(death.getPos())) {
-                // give the player some points for picking this up
+                // deducts the player some points for picking this up
                 player.subtractScore(death.getPointAmount());
                 collectedDeaths.add(death);
 
                 Random rand = new Random();
 
-                int deathX = rand.nextInt(COLUMNS);
-                int deathY = rand.nextInt(ROWS);
+                int deathX = rand.nextInt(COLUMNS),
+                        deathY = rand.nextInt(ROWS);
 
                 deaths.set(deaths.indexOf(death), (new Death(deathX, deathY)));
             }
